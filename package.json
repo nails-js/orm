@@ -1,0 +1,24 @@
+{
+  "name": "@nails/orm",
+  "version": "0.0.1",
+  "description": "An ORM built for nails. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/nails-js/orm.git"
+  },
+  "keywords": [
+    "orm",
+    "sql",
+    "postgres"
+  ],
+  "author": "Kito Clark",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nails-js/orm/issues"
+  },
+  "homepage": "https://github.com/nails-js/orm#readme"
+}
