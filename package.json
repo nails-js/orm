@@ -7,7 +7,7 @@
     "nails-orm": "./cli.js"
   },
   "scripts": {
-    "test": "mocha",
+    "test": "nyc mocha",
     "eslint": "./node_modules/.bin/eslint './src/**/*.js'",
     "eslint-fix": "./node_modules/.bin/eslint './src/**/*.js' --fix"
   },
@@ -30,6 +30,7 @@
     "eslint": "^5.15.1",
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-prettier": "^3.0.1",
+    "nyc": "^13.3.0",
     "prettier": "^1.16.4"
   },
   "dependencies": {
