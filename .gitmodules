@@ -1,3 +1,0 @@
-[submodule "modules/utils"]
-	path = modules/utils
-	url = git@github.com:nails-js/utils.git
