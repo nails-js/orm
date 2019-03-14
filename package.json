@@ -1,10 +1,15 @@
 {
   "name": "@nails/orm",
-  "version": "0.0.1",
+  "version": "0.0.7",
   "description": "An ORM built for nails. ",
   "main": "index.js",
+  "bin": {
+    "nails-orm": "./cli.js"
+  },
   "scripts": {
-    "test": "test"
+    "test": "mocha",
+    "eslint": "./node_modules/.bin/eslint './src/**/*.js'",
+    "eslint-fix": "./node_modules/.bin/eslint './src/**/*.js' --fix"
   },
   "repository": {
     "type": "git",
@@ -20,5 +25,20 @@
   "bugs": {
     "url": "https://github.com/nails-js/orm/issues"
   },
-  "homepage": "https://github.com/nails-js/orm#readme"
+  "homepage": "https://github.com/nails-js/orm#readme",
+  "devDependencies": {
+    "eslint": "^5.15.1",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "prettier": "^1.16.4"
+  },
+  "dependencies": {
+    "@nails/utils": "^0.0.3",
+    "caporal": "^1.1.0",
+    "colors": "^1.3.3",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "mocha": "^6.0.2",
+    "pg-connection-string": "^2.0.0"
+  }
 }
