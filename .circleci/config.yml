@@ -21,4 +21,7 @@ jobs:
             - ~/.cache/yarn
       - run:
           name: Run Tests
-          command: yarn test -t ${CODECOV_TOKEN}
+          command: yarn test
+      - run:
+          name: Run coverage reports
+          command: yarn report-coverage -t ${CODECOV_TOKEN}
