@@ -3,6 +3,7 @@
 const prog = require("caporal");
 
 const commands = require("./commands");
+const argValidator = require("./commands/validations/arg-validator");
 
 prog
   .version("1.0.0")
@@ -21,17 +22,11 @@ prog
 prog
   .version("1.0.0")
   .command("generate", "Generates files given correct action.")
-  .argument("<action>", "Specific generation action you want to run.", arg => {
-    const actions = ["migration"];
-    if (actions.includes(arg) === false) {
-      throw new Error(
-        `Generation action does not exist.\n   Here are the available actions -- [ ${actions.join(
-          ", "
-        )} ]`
-      );
-    }
-    return arg;
-  })
+  .argument(
+    "<action>",
+    "Specific generation action you want to run.",
+    argValidator("generate action", ["migration"])
+  )
   .option("--db <database>")
   .argument("<type>", "")
   .argument("<model>", "")

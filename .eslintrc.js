@@ -8,6 +8,7 @@ module.exports = {
     Atomics: "readonly",
     SharedArrayBuffer: "readonly"
   },
+  plugins: ["mocha"],
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: "module"
@@ -15,6 +16,19 @@ module.exports = {
   rules: {
     "no-restricted-syntax": ["error", "ForOfStatement"],
     "import/no-dynamic-require": "off",
-    "global-require": "off"
-  }
+    "global-require": "off",
+    "mocha/no-exclusive-tests": "error"
+  },
+  overrides: [
+    {
+      files: ["*.test.js"],
+      rules: {
+        "import/no-extraneous-dependencies": ["off"],
+        "no-alert": ["off"],
+        "no-console": ["off"],
+        "react/prop-types": ["off"],
+        "no-undef": ["off"]
+      }
+    }
+  ]
 };
