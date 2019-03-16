@@ -1,14 +1,10 @@
 version: 2.1
-orbs:
-  codecov: codecov/codecov@1.0.4
 jobs:
   build:
     working_directory: ~/orm/
     docker:
       - image: circleci/node:11
     steps:
-      #  - codecov/upload:
-      # file: ./
       - checkout
       - restore_cache:
           name: Restore Yarn Package Cache
@@ -26,3 +22,4 @@ jobs:
       - run:
           name: Run Tests
           command: yarn test
+      - run: curl -s https://codecov.io/bash | bash
