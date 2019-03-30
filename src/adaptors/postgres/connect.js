@@ -1,7 +1,8 @@
-const { isDataType } = require("@nails/utils");
+const { validators } = require("../../../utils");
+const { ConnectionError } = require("../../error-handler");
 
 const connect = (CONFIG, rootPath) => {
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     let config = CONFIG;
     // eslint-disable-next-line
     const { parse } = require("pg-connection-string");
@@ -9,7 +10,7 @@ const connect = (CONFIG, rootPath) => {
     // eslint-disable-next-line
     const { Pool, Client } = require(`${rootPath}/node_modules/pg`);
 
-    if (isDataType(config, "String")) {
+    if (validators.isDataType(config, "String")) {
       config = parse(config.connectionString);
     }
 
@@ -20,10 +21,12 @@ const connect = (CONFIG, rootPath) => {
 
     newConnection
       .connect()
-      .then(() =>
-        resolve({ connection: newConnection, dbName: config.database })
-      )
-      .catch(reject);
+      .then(() => {
+        resolve({ connection: newConnection, dbName: config.database });
+      })
+      .catch(error => {
+        throw new ConnectionError(error.code, config.database);
+      });
   });
 };
 

@@ -9,5 +9,6 @@ const options = {
 module.exports = async (args, ops) => {
   const { option } = args;
   const mutatedArgs = { ...args, rootPath: process.cwd() };
+
   if (options[option]) options[option](mutatedArgs, ops);
 };

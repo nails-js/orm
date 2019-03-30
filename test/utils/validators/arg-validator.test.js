@@ -1,5 +1,5 @@
 const { expect } = require("chai");
-const validationGenerator = require("../commands/validations/arg-validator");
+const validationGenerator = require("../../../utils/validators/arg-validator");
 
 describe("argValidator", () => {
   const allowedArgs = ["arg1", "arg2", "arg3"];

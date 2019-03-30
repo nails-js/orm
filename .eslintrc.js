@@ -17,7 +17,8 @@ module.exports = {
     "no-restricted-syntax": ["error", "ForOfStatement"],
     "import/no-dynamic-require": "off",
     "global-require": "off",
-    "mocha/no-exclusive-tests": "error"
+    "mocha/no-exclusive-tests": "error",
+    "no-console": ["off"]
   },
   overrides: [
     {
@@ -27,7 +28,8 @@ module.exports = {
         "no-alert": ["off"],
         "no-console": ["off"],
         "react/prop-types": ["off"],
-        "no-undef": ["off"]
+        "no-undef": ["off"],
+        "no-unused-expressions": ["off"]
       }
     }
   ]

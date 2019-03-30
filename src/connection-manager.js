@@ -1,5 +1,5 @@
 const fs = require("fs");
-const { isDataType, executeFromRoot } = require("@nails/utils");
+const { validators, fileSystem } = require("../utils");
 const adaptors = require("./adaptors");
 const { ConnectionError } = require("./error-handler");
 
@@ -8,13 +8,14 @@ function ConnectionManager(state, handlers) {
   const { setState } = handlers;
   // PRIVATE METHODS
   const getAdaptor = config => {
-    return isDataType(config, "String") ? config.split(":")[0] : config.adaptor;
+    return validators.isDataType(config, "String")
+      ? config.split(":")[0]
+      : config.adaptor;
   };
 
   function initializeModels(dbConfig, modelPath) {
     return new Promise(resolve => {
       const models = {};
-
       fs.readdirSync(modelPath).forEach(file => {
         const model = require(`${modelPath}/${file}`);
         model.setConnection(dbConfig);
@@ -29,32 +30,43 @@ function ConnectionManager(state, handlers) {
 
   return {
     connect(config) {
-      return executeFromRoot("@nails/orm", async rootPath => {
-        if (isDataType(config, "Object")) {
-          if (!config.adaptor) {
-            throw new ConnectionError("config_error_adaptor");
+      return fileSystem.executeFromRoot("@nails/orm", async rootPath => {
+        try {
+          if (validators.isDataType(config, "Object")) {
+            if (!config.adaptor) {
+              throw new ConnectionError("config_error_adaptor");
+            }
           }
+
+          const adaptor = getAdaptor(config);
+
+          if (!adaptors[adaptor]) {
+            throw new ConnectionError("adaptor_not_supported");
+          }
+
+          const newConnection = await adaptors[adaptor].connect(
+            config,
+            rootPath
+          );
+
+          const models = await initializeModels(
+            config,
+            `${rootPath}/database/${config.database.split("-")[0]}/models`
+          );
+
+          const connectionWithModels = { connection: newConnection, models };
+
+          setState("connections", {
+            ...connections,
+            [config.name]: connectionWithModels
+          });
+
+          console.log("Connected");
+
+          return connectionWithModels;
+        } catch (error) {
+          console.error(error);
         }
-
-        const adaptor = getAdaptor(config);
-
-        const newConnection = await adaptors[adaptor].connect(config, rootPath);
-
-        const models = await initializeModels(
-          config,
-          `${rootPath}/database/bridj/models`
-        );
-
-        const connectionWithModels = { connection: newConnection, models };
-
-        setState("connections", {
-          ...connections,
-          [config.name]: connectionWithModels
-        });
-
-        console.log("Connected");
-
-        return connectionWithModels;
       });
     }
   };

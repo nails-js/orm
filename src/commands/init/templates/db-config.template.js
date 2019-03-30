@@ -1,4 +1,4 @@
-const { objectToTemplate } = require("@nails/utils").formatters;
+const { objectToTemplate } = require("../../../../utils/formatters");
 
 module.exports = database => {
   const shapiyfyDb = env => {
@@ -17,9 +17,9 @@ module.exports = database => {
   adaptor: "${database[1] || "sqlite"}",
   development: {${shapiyfyDb("development")}
   },
-  development: {${shapiyfyDb("test")}
+  test: {${shapiyfyDb("test")}
   },
-  development: {${shapiyfyDb("production")}
+  production: {${shapiyfyDb("production")}
   }
 };
   `;

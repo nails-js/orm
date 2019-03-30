@@ -7,6 +7,7 @@ function Model(constructor, { connections }) {
     setConnection: dbConfig => {
       state.adaptor = dbConfig.adaptor;
       state.connection = connections[dbConfig.name];
+      console.log(state.adaptor);
     }
   };
 }

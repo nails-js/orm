@@ -2,8 +2,8 @@
 
 const prog = require("caporal");
 
-const commands = require("./commands");
-const argValidator = require("./commands/validations/arg-validator");
+const commands = require("./src/commands");
+const { argValidator } = require("./utils/validators");
 
 prog
   .version("1.0.0")

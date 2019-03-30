@@ -7,7 +7,7 @@
     "nails-orm": "./cli/index.js"
   },
   "scripts": {
-    "test": "nyc mocha",
+    "test": "nyc mocha './test/**/*.test.js' --recursive",
     "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "eslint": "./node_modules/.bin/eslint './src/**/*.js'",
     "eslint-fix": "./node_modules/.bin/eslint './src/**/*.js' --fix"
@@ -44,6 +44,7 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",
     "mocha": "^6.0.2",
-    "pg-connection-string": "^2.0.0"
+    "pg-connection-string": "^2.0.0",
+    "shelljs": "^0.8.3"
   }
 }
